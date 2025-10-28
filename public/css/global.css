@@ -1,399 +1,227 @@
-/* ========================================= */
-/* --- 1. CORE LAYOUT AND DESIGN RULES --- */
-/* ========================================= */
-
+/* 1. Global Reset & Layout Constraints */
 :root {
-    --color-primary: #4a55e1; /* Deep Blue */
-    --color-primary-dark: #3b44c2;
-    --color-secondary: #f0f0f5; /* Light Gray/Off-White */
-    --color-text-dark: #2c3e50;
-    --color-text-light: #ffffff;
-    --color-shadow: rgba(0, 0, 0, 0.1);
-
-    /* Ticket Status Colors (REQUIRED) */
-    --status-open: #4CAF50;    /* Green */
-    --status-in-progress: #FFC107; /* Amber */
-    --status-closed: #9E9E9E;  /* Gray */
+    /* REQUIRED Color Rules for ticket statuses */
+    --color-open: #4CAF50;
+    --color-in-progress: #FFC107;
+    --color-closed: #757575;
+    /* CRITICAL FIX: Base Primary Color (for buttons, links, etc.) */
+    --color-primary: #007bff; 
+    /* CRITICAL FIX: Color for the Hero Circle (A lighter, distinct shade) */
+    --color-hero-circle-main: #2b7ff9; 
+    /* CRITICAL FIX: Light blue background for the hero section */
+    --color-hero-background: #e6f0ff; 
+    
+    --shadow-base: 0 4px 10px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-header: 0 1px 3px rgba(0, 0, 0, 0.1); /* Faint shadow for header line */
 }
 
-/* Base Reset */
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
+/* CRITICAL FIX: Font Stack (Ensures a clean, modern system font look) */
 body {
-    font-family: Arial, sans-serif;
-    color: var(--color-text-dark);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #f4f7fa;
     line-height: 1.6;
-    background-color: var(--color-secondary);
 }
 
-/* Global Content Wrapper (REQUIRED: max-width) */
+/* REQUIRED: Enforce Max-Width of 1440px and Centering */
 .app-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 1440px; /* REQUIRED: Max width constraint */
-    width: 100%;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 40px;
+    background-color: #ffffff;
+    min-height: 100vh;
+    box-shadow: var(--shadow-base); 
 }
 
-main {
-    flex-grow: 1;
-    padding: 40px 0;
+/* General Container */
+.container {
+    padding: 0 20px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
-/* Box Sections (REQUIRED: Shadow, Rounded Corners) */
-.box-section {
-    background-color: var(--color-text-light);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px var(--color-shadow); /* REQUIRED: Shadow */
-    margin-bottom: 30px;
-}
-
-/* Buttons */
-.button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.button-primary {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-}
-
-.button-primary:hover {
-    background-color: var(--color-primary-dark);
-}
-
-.button-secondary {
-    background-color: var(--color-secondary);
-    color: var(--color-text-dark);
-    border: 1px solid #ccc;
-}
-
-/* Form Styles */
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-group input[type="email"],
-.form-group input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-/* Status Labels (REQUIRED: Color Rules) */
-.status-label {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-weight: bold;
-    color: var(--color-text-light);
-}
-
-.status-open {
-    background-color: var(--status-open);
-}
-
-.status-in_progress {
-    background-color: var(--status-in-progress);
-}
-
-.status-closed {
-    background-color: var(--status-closed);
-}
-
-/* ========================================= */
-/* --- 2. HEADER & NAVIGATION --- */
-/* ========================================= */
-
+/* --- Header/Navigation --- */
 .main-header {
-    background-color: var(--color-text-light);
-    box-shadow: 0 2px 4px var(--color-shadow);
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background-color: white; 
+    padding: 15px 0;
+    /* CRITICAL FIX: Faint line/shadow below header */
+    box-shadow: var(--shadow-header); 
 }
-
 .main-nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; 
 }
-
 .logo {
     font-size: 1.5em;
     font-weight: bold;
-    color: var(--color-primary-dark);
+    color: var(--color-primary);
     text-decoration: none;
 }
-
-.main-nav-links a, .main-nav-links button {
-    text-decoration: none;
-    color: var(--color-text-dark);
+.main-nav-links a {
     margin-left: 20px;
-    font-weight: 500;
-    transition: color 0.2s;
+    color: #333;
+    text-decoration: none;
 }
-
 .main-nav-links a:hover {
     color: var(--color-primary);
 }
 
-/* ========================================= */
-/* --- 3. LANDING PAGE & HERO (REQUIRED) --- */
-/* ========================================= */
 
-.landing-hero {
+/* --- Hero Section (The Wavy Background Area) --- */
+.hero-section {
+    background-color: var(--color-hero-background); 
+    color: #333;
+    /* Adjusted padding for better vertical alignment */
+    padding: 120px 0 150px; 
     position: relative;
-    background-color: #f0f4ff; /* Lighter background for the hero */
-    padding: 80px 0 100px;
-    overflow: hidden;
+    overflow: hidden; 
+}
+.hero-content {
+    position: relative;
+    z-index: 5;
+    padding: 20px 0; 
+    min-height: 300px; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+}
+.hero-content h1 {
+    font-size: 3em;
+    color: #000;
+    font-weight: 700;
+}
+.hero-content h2 {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    font-weight: 500;
 }
 
-/* REQUIRED: Wavy Background in Hero Section */
-.wavy-background {
+/* --- CRITICAL: Decorative Circles (Final Look) --- */
+.decorative-circle {
+    position: absolute;
+    top: 50%;
+    right: 50px; 
+    transform: translateY(-50%); 
+    width: 250px; 
+    height: 250px;
+    border-radius: 50%;
+    
+    /* CRITICAL FIX: Vibrant Blue Color for Main Circle */
+    background-color: var(--color-hero-circle-main); 
+    opacity: 1; 
+    z-index: 4; 
+    pointer-events: none;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2); 
+    
+    /* Center and style the "Hero" text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8); 
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.decorative-circle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 350px; 
+    height: 350px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    /* CRITICAL FIX: Blurred, Lighter Circle Behind */
+    background: var(--color-hero-circle-main); 
+    opacity: 0.15; 
+    filter: blur(80px); 
+    z-index: 3; 
+}
+
+
+/* --- SVG Wave Styling --- */
+.hero-wave {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 100px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,192L48,176C96,160,192,128,288,106.7C384,85,480,75,576,90.7C672,107,768,149,864,170.7C960,192,1056,192,1152,176C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x bottom;
-    z-index: 1;
+    height: 150px; 
+    z-index: 1; 
+    pointer-events: none;
 }
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.hero-text h1 {
-    font-size: 3em;
-    margin-bottom: 15px;
-    color: var(--color-text-dark);
-}
-
-.hero-text p {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    max-width: 500px;
-}
-
-/* REQUIRED: Decorative Circle */
-.decorative-circle {
-    width: 300px;
-    height: 300px;
-    background-color: var(--color-primary);
-    border-radius: 50%;
-    opacity: 0.8;
-    filter: blur(50px);
-}
-
-/* ========================================= */
-/* --- 4. DASHBOARD & TICKETS --- */
-/* ========================================= */
-
-/* Dashboard Summary Cards */
-#ticket-summary-container {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between;
-    gap: 20px; 
-}
-
-.summary-card {
-    /* Base styling: 4 cards wide, allowing wrap */
-    flex: 1 1 calc(25% - 15px); 
-    min-width: 200px;
-    text-align: center;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px var(--color-shadow);
-}
-
-.summary-card h3 {
-    font-size: 1em;
-    opacity: 0.7;
-    margin-bottom: 10px;
-}
-
-.summary-card p {
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-/* Ticket Table */
-.ticket-table {
+.hero-wave svg {
+    display: block;
     width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; 
+    height: 100%;
 }
 
-.ticket-table th, .ticket-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    word-wrap: break-word;
-}
 
-.ticket-table th {
-    background-color: var(--color-secondary);
-    color: var(--color-text-dark);
+/* --- Button Styles --- */
+.button {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 6px;
     font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.85em;
-}
-
-.ticket-table tbody tr:hover {
-    background-color: #f5f5f5;
-}
-
-
-/* ========================================= */
-/* --- 5. RESPONSIVENESS FIXES (REQUIRED) --- */
-/* ========================================= */
-
-/* General Padding Adjustment */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 20px;
-    }
-}
-
-/* A. Fix Navigation on Mobile */
-@media (max-width: 600px) {
-    .main-header {
-        padding: 10px 0;
-    }
-    .main-nav-container {
-        padding: 0 15px;
-        flex-direction: column; /* Stack logo and nav */
-    }
-    .logo {
-        margin-bottom: 10px;
-        font-size: 1.3em;
-    }
-    .main-nav-links {
-        display: flex;
-        flex-wrap: wrap; /* Allow buttons/links to wrap */
-        justify-content: center;
-        width: 100%;
-    }
-    .main-nav-links a, .main-nav-links button {
-        margin: 5px 5px; /* Spacing between wrapped items */
-        font-size: 0.8em;
-    }
-}
-
-
-/* B. Fix Dashboard Summary Cards */
-@media (max-width: 768px) {
-    /* For Tablets/Large Phones: Two cards per row */
-    .summary-card {
-        flex: 1 1 calc(50% - 15px); 
-    }
-}
-
-@media (max-width: 480px) {
-    /* For Small Phones: One card per row (full width stacking) */
-    .summary-card {
-        flex: 1 1 100%; 
-    }
-}
-
-
-/* C. Fix Ticket List Table (Horizontal Scroll) */
-@media (max-width: 768px) {
-    /* Wrap the container to allow horizontal scrolling for the wide table */
-    #ticket-list-section {
-        overflow-x: auto;
-    }
-
-    /* Force the table to maintain a minimum width, triggering scroll */
-    .ticket-table {
-        min-width: 750px; 
-    }
-}
-
-/* D. Fix Landing Page Hero Layout */
-@media (max-width: 768px) {
-    .hero-content {
-        flex-direction: column; /* Stack text above circle */
-        text-align: center;
-    }
-
-    .hero-text {
-        margin-bottom: 40px;
-    }
-
-    .hero-text h1 {
-        font-size: 2.5em;
-    }
-
-    .decorative-circle {
-        width: 200px;
-        height: 200px;
-    }
-}
-
-/* ========================================= */
-/* --- 6. FOOTER --- */
-/* ========================================= */
-
-.main-footer {
-    background-color: var(--color-text-dark);
-    color: var(--color-secondary);
-    padding: 20px 0;
-    text-align: center;
-    font-size: 0.85em;
-    margin-top: auto; /* Push footer to the bottom */
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-links a {
-    color: var(--color-secondary);
     text-decoration: none;
-    margin-left: 20px;
+    transition: background-color 0.3s, opacity 0.3s;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.button-primary {
+    /* CRITICAL FIX: Use the CRITICAL FIX primary color */
+    background-color: var(--color-primary); 
+    color: white;
+}
+.button-primary:hover {
+    background-color: #0056b3; /* Darker hover state */
+}
+.button-secondary {
+    background-color: white;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    margin-left: 10px;
+}
+.button-secondary:hover {
+    background-color: var(--color-hero-background);
 }
 
-@media (max-width: 600px) {
-    .footer-content {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .footer-links a {
-        margin: 0 10px;
-    }
+
+/* --- Other Component Styles (Minified) --- */
+.box-section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 8px; 
+    box-shadow: var(--shadow-base); 
+    border: 1px solid #e0e0e0;
+}
+.ticket-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+}
+.status-open {
+    background-color: var(--color-open);
+}
+.status-in_progress {
+    background-color: var(--color-in-progress);
+}
+.status-closed {
+    background-color: var(--color-closed);
+}
+
+/* --- CRITICAL FIX: FOOTER REMOVAL (Completely hidden) --- */
+.site-footer {
+    display: none; 
+}
+.landing-bottom-spacing {
+    padding: 50px 0;
+    background-color: white; 
 }
