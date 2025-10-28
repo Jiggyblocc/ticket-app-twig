@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicketApp | {{ page_title }}</title>
+    <link rel="stylesheet" href="public/css/global.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="main-header">
+            <div class="container main-nav-container">
+                <a href="/" class="logo">TicketMaster Pro</a>
+                <nav class="main-nav-links">
+                    {# These links are toggled by the script below #}
+                    <a href="/dashboard" id="nav-dashboard">Dashboard</a>
+                    <a href="/tickets" id="nav-tickets">Tickets</a>
+                    
+                    <button id="logout-btn" class="button" style="padding: 8px 15px; font-size: 0.9em; margin-left: 10px; cursor: pointer;">Logout</button>
+                    <a href="/login" id="login-nav-link" class="button button-primary" style="padding: 8px 15px; font-size: 0.9em; margin-left: 10px;">Login</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        {# Footer is included but styled with display: none in global.css for the Landing Page look #}
+        {% include '_includes/footer.html.twig' %}
+        
+    </div>
+
+    {# Standard Scripts Block - Always include auth.js for session management #}
+    <script src="public/js/auth.js"></script>
+    
+    {# Allows individual pages (like dashboard) to inject additional scripts #}
+    {% block scripts %}{% endblock %}
+
+    <script>
+        // Final client-side navigation display logic based on session
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('ticketapp_session') === 'active';
+            
+            const dashboardLink = document.getElementById('nav-dashboard');
+            const ticketsLink = document.getElementById('nav-tickets');
+            
+            // Toggle visibility of protected links and auth buttons
+            if (dashboardLink) dashboardLink.style.display = isLoggedIn ? 'inline-block' : 'none';
+            if (ticketsLink) ticketsLink.style.display = isLoggedIn ? 'inline-block' : 'none';
+            
+            document.getElementById('logout-btn').style.display = isLoggedIn ? 'inline-block' : 'none';
+            document.getElementById('login-nav-link').style.display = isLoggedIn ? 'none' : 'inline-block';
+        });
+    </script>
+</body>
+</html>

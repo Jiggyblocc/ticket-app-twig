@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Welcome' %}
+
+{% block content %}
+    
+    <div class="hero-section">
+        <div class="container hero-content">
+            
+            {# Exact text from your target image #}
+            <h1>TicketMaster Pro</h1>
+            <h2>Manage your tickets effortlessly — create, track, and resolve in one place.</h2>
+            
+            <div class="hero-actions">
+                <a href="/dashboard" class="button button-primary">Get Started</a>
+                <a href="/login" class="button button-secondary">Login</a>
+            </div>
+            
+            {# CRITICAL: The decorative circle element with the "Hero" text inside #}
+            <div class="decorative-circle">Hero</div> 
+        </div>
+
+        {# CRITICAL: Include the wave SVG element #}
+        {% include '_includes/wave_svg.html.twig' %}
+    </div>
+
+    {# This div provides the white space below the wave, matching the Vue app's minimal footer #}
+    <div class="landing-bottom-spacing"></div>
+
+{% endblock %}

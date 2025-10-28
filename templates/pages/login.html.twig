@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Login' %}
+
+{% block content %}
+    
+    <div class="container" style="padding-top: 80px; padding-bottom: 80px; display: flex; justify-content: center;">
+        
+        {# Login Box (Uses the required box-shaped sections with shadow and rounded corners) #}
+        <div class="box-section" style="width: 100%; max-width: 400px; text-align: center;">
+            <h2 style="margin-bottom: 20px;">TicketApp Login</h2>
+            
+            <p style="margin-bottom: 25px;">
+                Use the following credentials to test: <br>
+                **User:** `test@user.com` | **Pass:** `password123`
+            </p>
+
+            <div id="login-error" style="color: red; margin-bottom: 15px; display: none;"></div>
+
+            <form id="login-form">
+                <div class="form-group" style="margin-bottom: 15px; text-align: left;">
+                    <label for="email" style="display: block; margin-bottom: 5px;">Email</label>
+                    <input type="email" id="email" name="email" value="test@user.com" required 
+                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 25px; text-align: left;">
+                    <label for="password" style="display: block; margin-bottom: 5px;">Password</label>
+                    <input type="password" id="password" name="password" value="password123" required
+                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <button type="submit" class="button button-primary" style="width: 100%;">Login</button>
+            </form>
+
+            <p style="margin-top: 20px;"><a href="/">Back to Home</a></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {# Link the new authentication JavaScript file #}
+    <script src="public/js/auth.js"></script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Ticket Management List' %}
+
+{% block content %}
+    <div class="container">
+        
+        <header class="ticket-list-header" style="padding: 40px 0 20px; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 2em;">Ticket Management List</h2>
+            <button id="new-ticket-btn" class="button button-primary">+ Create New Ticket</button>
+        </header>
+
+        {# Ticket Filtering Tabs (Matching Vue Reference) #}
+        <div class="ticket-filter-tabs" style="margin-bottom: 25px; border-bottom: 1px solid #ddd;">
+            <button class="filter-tab button-secondary active" data-filter="all">All (TBD)</button>
+            <button class="filter-tab button-secondary" data-filter="open">Open (TBD)</button>
+            <button class="filter-tab button-secondary" data-filter="in_progress">In Progress (TBD)</button>
+            <button class="filter-tab button-secondary" data-filter="closed">Closed (TBD)</button>
+        </div>
+
+        {# 1. Ticket Creation Form #}
+        <div id="ticket-form-section" class="box-section" style="display: none; margin-bottom: 30px;">
+            <h3>Create/Edit Ticket</h3>
+            <form id="ticket-form">
+                <input type="hidden" id="ticket-id" name="id" value="">
+                {# Title #}
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="ticket-title" style="display: block; margin-bottom: 5px; font-weight: bold;">Title (Required)</label>
+                    <input type="text" id="ticket-title" name="title" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <div id="title-error" style="color: red; font-size: 0.9em; margin-top: 5px; display: none;">Title is required.</div>
+                </div>
+                {# Status #}
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="ticket-status" style="display: block; margin-bottom: 5px; font-weight: bold;">Status (Required)</label>
+                    <select id="ticket-status" name="status" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="open">Open</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                    <div id="status-error" style="color: red; font-size: 0.9em; margin-top: 5px; display: none;">Status must be 'open', 'in_progress', or 'closed'.</div>
+                </div>
+                {# Priority (New Field) #}
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="ticket-priority" style="display: block; margin-bottom: 5px; font-weight: bold;">Priority</label>
+                    <select id="ticket-priority" name="priority" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                {# Description #}
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="ticket-description" style="display: block; margin-bottom: 5px; font-weight: bold;">Description (Optional)</label>
+                    <textarea id="ticket-description" name="description" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                </div>
+
+                <button type="submit" class="button button-primary" id="save-ticket-btn">Save Ticket</button>
+                <button type="button" id="cancel-ticket-btn" class="button button-secondary">Cancel</button>
+            </form>
+        </div>
+
+        {# 2. Ticket Listing Area (Table Renders Here) #}
+        <div id="ticket-list-section" class="box-section">
+            <div id="ticket-list-container">
+                <p id="loading-message">Loading tickets...</p>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {# Authentication and CRUD logic is linked here #}
+    <script src="public/js/auth.js"></script>
+    <script src="public/js/tickets.js"></script>
+    <script>
+        // CRITICAL: Protect this page
+        document.addEventListener('DOMContentLoaded', () => {
+            requireAuthentication();
+        });
+    </script>
+{% endblock %}

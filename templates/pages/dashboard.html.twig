@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Dashboard - Ticket Management' %}
+
+{% block content %}
+    <div class="container">
+        <header class="dashboard-header" style="padding: 40px 0 20px; text-align: center;">
+            <h2 style="font-size: 2em; margin-bottom: 30px;">Ticket Summary</h2>
+        </header>
+
+        {# Summary Card Area #}
+        <div id="ticket-summary-container" style="display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 30px;">
+            {# Summary cards will be injected here by tickets.js #}
+        </div>
+
+        {# Quick Actions Card #}
+        <div class="box-section" style="text-align: center; margin-bottom: 40px;">
+             <h3 style="margin-bottom: 10px;">Quick Actions</h3>
+             <p>Use the **Tickets** link in the header to navigate to Ticket Management and create/view tickets.</p>
+        </div>
+        
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="public/js/auth.js"></script>
+    <script src="public/js/tickets.js"></script>
+    <script>
+        // Enforce authentication immediately when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            requireAuthentication();
+        });
+    </script>
+{% endblock %}
