@@ -5,11 +5,11 @@
     --color-in-progress: #FFC107;
     --color-closed: #757575;
     /* CRITICAL FIX: Base Primary Color (for buttons, links, etc.) */
-    --color-primary: #007bff; 
+    --color-primary: #007bff;
     /* CRITICAL FIX: Color for the Hero Circle (A lighter, distinct shade) */
-    --color-hero-circle-main: #2b7ff9; 
+    --color-hero-circle-main: #2b7ff9;
     /* CRITICAL FIX: Light blue background for the hero section */
-    --color-hero-background: #e6f0ff; 
+    --color-hero-background: #e6f0ff;
     
     --shadow-base: 0 4px 10px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-header: 0 1px 3px rgba(0, 0, 0, 0.1); /* Faint shadow for header line */
@@ -62,6 +62,10 @@ body {
     color: var(--color-primary);
     text-decoration: none;
 }
+/* CRITICAL FIX: Ensure navigation links are not visible on the smallest screens by default */
+.main-nav-links {
+    display: none; /* Hidden on mobile, shown via media query below */
+}
 .main-nav-links a {
     margin-left: 20px;
     color: #333;
@@ -101,7 +105,7 @@ body {
     font-weight: 500;
 }
 
-/* --- CRITICAL: Decorative Circles (Final Look) --- */
+/* --- CRITICAL FIX: Decorative Circles (Final Look) --- */
 .decorative-circle {
     position: absolute;
     top: 50%;
@@ -217,11 +221,84 @@ body {
     background-color: var(--color-closed);
 }
 
-/* --- CRITICAL FIX: FOOTER REMOVAL (Completely hidden) --- */
+/* --- FOOTER & SPACING --- */
 .site-footer {
-    display: none; 
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #eee;
+    color: #999;
+    font-size: 0.9em;
 }
 .landing-bottom-spacing {
     padding: 50px 0;
     background-color: white; 
+}
+
+/* ====================================================== */
+/* 2. Responsive Design / Mobile Fixes (Max-width 768px) */
+/* ====================================================== */
+@media (max-width: 768px) {
+    
+    /* Global: Reduce container padding on small screens */
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Header: Show navigation links inline on smaller screens */
+    .main-nav-links {
+        /* CRITICAL FIX: Make navigation links visible again for logged-in users */
+        display: block; 
+    }
+    .main-nav-links a {
+        /* Reduce spacing between navigation items on mobile */
+        margin-left: 10px; 
+    }
+    
+    /* Hero Section: Fix Overlap and improve readability */
+    .hero-section {
+        /* Reduce overall padding so content doesn't feel too stretched */
+        padding: 80px 0 100px;
+    }
+    
+    .hero-content {
+        /* CRITICAL FIX: Ensure text is centered and readable */
+        text-align: center;
+        /* Increase width to push circle away */
+        width: 90%; 
+        margin: 0 auto;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2em; /* Smaller, readable title */
+    }
+    
+    /* CRITICAL FIX: Fix Overlap Issue - Push the circle off-screen */
+    .decorative-circle {
+        /* Move it far to the right so it doesn't overlap content */
+        right: -100px; 
+        /* Make it smaller to reduce visual distraction */
+        width: 180px;
+        height: 180px;
+        /* Reduce opacity even more on mobile to make text pop */
+        opacity: 0.2; 
+        /* Reset transform origin to prevent weird shifting */
+        transform: translateY(0); 
+    }
+
+    .decorative-circle::before {
+        /* Hide the massive blurred circle to clean up the mobile view */
+        display: none; 
+    }
+    
+    /* Buttons: Ensure buttons stack vertically if multiple exist */
+    .hero-content .button {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    
+    /* Remove unnecessary margin from secondary button when stacked */
+    .button-secondary {
+        margin-left: 0;
+    }
 }
